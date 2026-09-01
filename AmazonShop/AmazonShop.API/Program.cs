@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using AmazonShop.Infrastructure;
+using AmazonShop.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;

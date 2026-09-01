@@ -2,7 +2,7 @@
 using AmazonShop.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace AmazonShop.Infrastructure
+namespace AmazonShop.Infrastructure.Data
 {
     public class AmazonShopDbContext : DbContext
     {
