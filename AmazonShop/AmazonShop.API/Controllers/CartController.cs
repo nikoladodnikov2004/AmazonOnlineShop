@@ -43,7 +43,7 @@ namespace AmazonShop.API.Controllers
                     Quantity = c.Quantity,
                     Name = c.Product.Name,
                     Brand = c.Product.Brand,
-                    Category = c.Category.Name,
+                    Category = c.Product.Category.Name,
                     Price = c.Product.Price,
                     StockQuantity = c.Product.StockQuantity,
                     ImageUrl = c.Product.ImageUrl
@@ -67,7 +67,7 @@ namespace AmazonShop.API.Controllers
             }
 
             var cartItem = await _context.CartItems.Include(c => c.Product)
-        .Include(c => c.Category).FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);
+        .ThenInclude(c => c.Category).FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);
 
             if (cartItem == null)
             {
@@ -82,7 +82,7 @@ namespace AmazonShop.API.Controllers
                 Quantity = cartItem.Quantity,
                 Name = cartItem.Product.Name,
                 Brand = cartItem.Product.Brand,
-                Category = cartItem.Category.Name,
+                Category = cartItem.Product.Category.Name,
                 Price = cartItem.Product.Price,
                 StockQuantity = cartItem.Product.StockQuantity,
                 ImageUrl = cartItem.Product.ImageUrl
