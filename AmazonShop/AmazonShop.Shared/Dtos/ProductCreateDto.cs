@@ -21,6 +21,9 @@ namespace AmazonShop.Shared.Dtos
         [Required, MaxLength(50)]
         public string Category { get; set; } = string.Empty;
 
+        [Required]
+        public int CategoryId { get; set; }
+
         [Range(0.01,100000.00)]
         public decimal Price { get; set; }
 
