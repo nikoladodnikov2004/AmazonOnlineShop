@@ -29,6 +29,9 @@ namespace AmazonShop.Domain.Entities
         [Required]
         public byte[] PasswordSalt { get; set; } = null!;
 
+        [Required]
+        public DateTime RegisteredAt { get; set; }
+
         [Required, MaxLength(50)]
         public string Role { get; set; } = "Customer";
 
