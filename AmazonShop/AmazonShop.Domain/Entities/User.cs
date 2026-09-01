@@ -23,6 +23,7 @@ namespace AmazonShop.Domain.Entities
         [Required]
         public string Email { get; set; }= string.Empty;
 
+
         [Required]
         public byte[] PasswordHash { get; set; } = null!;
 

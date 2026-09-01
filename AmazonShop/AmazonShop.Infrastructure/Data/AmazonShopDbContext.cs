@@ -23,7 +23,7 @@ namespace AmazonShop.Infrastructure.Data
                 .HasPrecision(18, 2);
 
             modelBuilder.Entity<Order>()
-                .Property(o => o.TotalSum)
+                .Property(o => o.TotalPrice)
                 .HasPrecision(18, 2);
 
             modelBuilder.Entity<OrderItem>()

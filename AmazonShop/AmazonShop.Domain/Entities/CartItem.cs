@@ -18,8 +18,8 @@ namespace AmazonShop.Domain.Entities
         [Range(1,100)]
         public int Quantity { get; set; } = 1;
 
-        public User User { get; set; } = null;
-        public Product Product { get; set; } = null;
-
+        public User User { get; set; } = null!;
+        public Product Product { get; set; } = null!;
+        public Category Category { get; set; } = null!;
     }
 }
