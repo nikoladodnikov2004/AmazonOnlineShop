@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AmazonShop.Domain\AmazonShop.Domain.csproj" />
+    <ProjectReference Include="..\AmazonShop.Shared\AmazonShop.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
