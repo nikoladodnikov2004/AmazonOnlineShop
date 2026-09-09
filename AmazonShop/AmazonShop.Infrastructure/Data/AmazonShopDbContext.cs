@@ -15,6 +15,8 @@ namespace AmazonShop.Infrastructure.Data
         public DbSet<CartItem> CartItems => Set<CartItem>();
         public DbSet<Category> Categories => Set<Category>();
 
+        public DbSet<Review> Reviews => Set<Review>();
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

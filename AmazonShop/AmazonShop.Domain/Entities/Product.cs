@@ -29,7 +29,10 @@ namespace AmazonShop.Domain.Entities
 
         public int CategoryId {  get; set; }
         public Category Category { get; set; } = null!;
-
+        
+        public double Rating { get; set; } = 0.0;
+        public int ReviewCount { get; set; } = 0;
+        public ICollection<Review> Reviews { get; set; } = new List<Review>();
 
     }
 }
