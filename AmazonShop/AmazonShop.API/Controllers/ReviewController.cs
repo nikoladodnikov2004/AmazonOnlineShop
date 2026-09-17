@@ -2,12 +2,16 @@
 using AmazonShop.Domain.Entities;
 using AmazonShop.Infrastructure.Data;
 using AmazonShop.Shared.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace AmazonShop.API.Controllers
 {
-    public class ReviewController : Controller
+    [Authorize]
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ReviewController : ControllerBase
     {
         private readonly AmazonShopDbContext _context;
         public ReviewController(AmazonShopDbContext context)
@@ -16,9 +20,10 @@ namespace AmazonShop.API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<IEnumerable<ReviewReadDto>>> GetReviewsByProduct(int productId)
+        public async Task<ActionResult<IEnumerable<ReviewReadDto>>> GetReviewsByProduct([FromQuery] int productId)
         {
 
 
@@ -68,11 +73,12 @@ namespace AmazonShop.API.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("{productId}")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<ReviewReadDto>> CreateReview(int productId, ReviewCreateDto reviewCreateDto)
+        public async Task<ActionResult<ReviewReadDto>> CreateReview(int productId, [FromBody] ReviewCreateDto reviewCreateDto)
         {
             if (!ModelState.IsValid)
             {
@@ -80,7 +86,14 @@ namespace AmazonShop.API.Controllers
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "anonymous";
-            var userName=User.Identity?.Name ?? "Анонимен";
+            var firstName = User.FindFirstValue(ClaimTypes.GivenName) ?? "";
+            var lastName = User.FindFirstValue(ClaimTypes.Surname) ?? "";
+            var userName = $"{firstName} {lastName}".Trim();
+
+            if (string.IsNullOrEmpty(userName))
+            {
+                userName = User.Identity?.Name ?? "Анонимен";
+            }
 
             var review = new Review
             {
