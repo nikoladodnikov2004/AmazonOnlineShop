@@ -87,6 +87,51 @@ namespace AmazonShop.API.Controllers
             };
         }
 
+
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> AddToWishList(AddToWishListDto addToWishList)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!int.TryParse(userIdClaim, out int userId))
+            {
+                return Unauthorized();
+            }
+
+            var productExists = await _context.Products.AnyAsync(p => p.Id == addToWishList.ProductId);
+            if (!productExists)
+            {
+                return BadRequest("Продуктът не съществува.");
+            }
+
+            var existingItem = await _context.WishListItems.FirstOrDefaultAsync(c => c.UserId == userId && c.ProductId == addToWishList.ProductId);
+
+            
+
+                var cartItem = new CartItem
+                {
+                    UserId = userId,
+                    ProductId = addToWishList.ProductId,
+                    
+                };
+                _context.CartItems.Add(cartItem);
+            
+
+
+            await _context.SaveChangesAsync();
+            return Ok();
+
+        }
+
+
        
 
 
