@@ -13,6 +13,7 @@ namespace AmazonShop.Infrastructure.Data
         public DbSet<User> Users => Set<User>();
         public DbSet<OrderItem> OrderItems => Set<OrderItem>();
         public DbSet<CartItem> CartItems => Set<CartItem>();
+        public DbSet<WishListItem> WishListItems => Set<WishListItem>();
         public DbSet<Category> Categories => Set<Category>();
 
         public DbSet<Review> Reviews => Set<Review>();
