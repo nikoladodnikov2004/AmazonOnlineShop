@@ -54,7 +54,7 @@ namespace AmazonShop.API
             {
                 options.AddPolicy("AllowReactApp", policy =>
                 {
-                    policy.WithOrigins("http://localhost:5173")
+                    policy.WithOrigins("http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:5174")
                           .AllowAnyHeader()
                           .AllowAnyMethod()
                           .AllowCredentials();
@@ -73,7 +73,10 @@ namespace AmazonShop.API
                 // Optionally use the service here
 
 
+
             }
+
+            app.UseCors("AllowReactApp");
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -84,7 +87,7 @@ namespace AmazonShop.API
             app.UseHttpsRedirection();
 
 
-            app.UseCors("AllowReactApp");
+           
             
 
 
