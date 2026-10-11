@@ -155,6 +155,14 @@ namespace AmazonShop.API.Controllers
 
             foreach (var cartItem in cartItems)
             {
+
+                if(cartItem.Product.StockQuantity < cartItem.Quantity)
+                {
+                    return BadRequest($"Недостатъчно количество за продукт: {cartItem.Product.Name}. Наличност: {cartItem.Product.StockQuantity}, Искано: {cartItem.Quantity}");
+                }
+
+                cartItem.Product.StockQuantity -= cartItem.Quantity;
+
                 var orderItem = new OrderItem
                 {
                     ProductId = cartItem.ProductId,
