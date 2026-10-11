@@ -65,8 +65,8 @@ namespace AmazonShop.API.Controllers
                 return Unauthorized();
             }
 
-            var wishListItem = await _context.WishListItems.Include(c => c.Product)
-        .ThenInclude(c => c.Category).FirstOrDefaultAsync(c => c.Id == id && c.UserId == userId);
+            var wishListItem = await _context.WishListItems.Include(w=> w.Product)
+        .ThenInclude(w => w.Category).FirstOrDefaultAsync(w => w.Id == id && w.UserId == userId);
 
             if (wishListItem == null)
             {
@@ -114,15 +114,18 @@ namespace AmazonShop.API.Controllers
 
             var existingItem = await _context.WishListItems.FirstOrDefaultAsync(c => c.UserId == userId && c.ProductId == addToWishList.ProductId);
 
-            
+            if (existingItem != null)
+            {
+                return BadRequest("Продуктът вече е в любими.");
+            }
 
-                var cartItem = new CartItem
+            var wishListItem = new WishListItem
                 {
                     UserId = userId,
                     ProductId = addToWishList.ProductId,
                     
                 };
-                _context.CartItems.Add(cartItem);
+                _context.WishListItems.Add(wishListItem);
             
 
 
