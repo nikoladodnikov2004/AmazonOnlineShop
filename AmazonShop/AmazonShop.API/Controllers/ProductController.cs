@@ -21,6 +21,7 @@ namespace AmazonShop.API.Controllers
 
 
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<PagedResult<ProductReadDto>>> GetProducts([FromQuery] ProductQueryParameters query)
